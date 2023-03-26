@@ -68,6 +68,7 @@
 /* section starts */
 .exp_content_body {
   padding: 20px 30px;
+  box-sizing: border-box;
 }
 
 .exp_section {
@@ -80,6 +81,7 @@
 .exp_hero {
   width: 85%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -251,7 +253,21 @@
 }
 
 /* footer ends */
-@media only screen and (max-width: 810px) {
+@media only screen and (max-width: 870px) {
+  .exp_hero {
+    width: 95%;
+  }
+
+  .exp_hero_title {
+    font-size: 2.5rem;
+  }
+
+  .exp_hero_content p:first-child {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
   .exp_title h1 {
     font-size: 30px;
     margin-bottom: 3px;
@@ -263,5 +279,30 @@
 
   .exp_nav_links a {
     font-size: 18px;
+  }
+
+  /* Hero section */
+  .exp_hero {
+    width: 100%;
+  }
+
+  .exp_hero>div {
+    width: 100%;
+  }
+
+  .exp_hero_title {
+    font-size: 2rem;
+  }
+
+  .exp_hero_content p:first-child {
+    font-size: 20px;
+  }
+
+  .exp_hero_content p:last-child {
+    font-size: 18px;
+  }
+
+  .exp_hero>div img {
+    width: 100%;
   }
 }
