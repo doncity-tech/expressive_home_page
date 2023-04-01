@@ -211,7 +211,10 @@
       </div>
     </div>
     <div class="exp_footer2">
-      <div class="exp_f2_inner1"><p>Copyright &copy; Expressiveinfo 2023</p></div>
+      <div class="exp_f2_inner1"><p>Copyright &copy; Expressiveinfo <span id="copy_time"></span></p></div>
+      <script>
+        document.querySelector('#copy_time').textContent = new Date().getFullYear();
+      </script>
       <div class="exp_f2_inner2"><p>Advertise with us</p></div>
       <div class="exp_f2_inner3">
         <div class="exp_social">
