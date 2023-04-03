@@ -28,33 +28,32 @@ const myDateFormat = (date) => {
   let m = date.split('T')[0].split('-')
   return `${month[Number(m[1]) - 1]} ${m[2]}, ${m[0]}`;
 }
-const postDom = qs('#exp-news-body');
-const displayEachPost = (data) => {
-  data.forEach(x => {
+const displayEachPost = (data, className, type) => {
+  let postDom = (type === 'news') ? qs('#exp-news-body') : qs('#exp-skill-body');
+  data.slice(0, 4).forEach(x => {
     const { _embedded, title, date, excerpt, link } = x;
     const { source_url } = _embedded[`wp:featuredmedia`][0];
     const myDate = myDateFormat(date);
     const excerptText = getEachWord(excerpt[`rendered`]);
     const postTitle = title[`rendered`];
-    const expDomElem = cEl('div', 'class', 'exp_news_card')
+    const expDomElem = cEl('div', 'class', className);
     const postCard = `
         <div class="exp_card_img"><img src="${source_url}" alt="Card Image" height="180px"></div>
         <div class="exp_card_content">
           <h3>${postTitle}</h3>
           <time>${myDate}</time>
-          ${excerptText}
-          <p style="text-align: right;"><a href="${link}">Continue Reading >></a></p>
+          ${excerptText}...
+          <p style="text-align: right;" class="exp-more-read"><a href="${link}">
+            Continue Reading <i class="fa-solid fa-angles-right" style="font-size: 12px"></i>
+          </a></p>
         </div>
     `
     expDomElem.innerHTML = postCard;
     postDom.appendChild(expDomElem);
-    //console.log(excerpt[`rendered`]);
-    //console.log(source_url);
   })
 }
 
-const latestNews = () => {
-  let url = `https://www.expressiveinfo.com/wp-json/wp/v2/posts?categories=1&per_page=4&_embed`;
+const fetchPosts = (url, className, type) => {
   fetch(url, {
     method: 'GET',
     mode: 'cors'
@@ -67,16 +66,21 @@ const latestNews = () => {
     })
     .then((res) => { return res.json() })
     .then(data => {
-      displayEachPost(data);
+      displayEachPost(data, className, type);
     })
     .catch(err => {
       console.log(err);
     })
 }
-latestNews();
 
-const latestSkills = () => {
-  let url = `https://www.expressiveinfo.com/wp-json/wp/v2/posts?categories=1375&per_page=4`;
+const newsURL = "https://www.expressiveinfo.com/wp-json/wp/v2/posts?categories=1&_embed";
+const skillURL = "https://www.expressiveinfo.com/wp-json/wp/v2/posts?categories=1375&_embed";
+fetchPosts(newsURL, 'exp_news_card', 'news');
+fetchPosts(skillURL, 'exp_skill_card', 'skill');
+
+//Handle top new
+const topNews = () => {
+  let url = 'https://www.expressiveinfo.com/wp-json/wp/v2/posts?categories=1380';
   fetch(url, {
     method: 'GET',
     mode: 'cors'
@@ -89,10 +93,10 @@ const latestSkills = () => {
     })
     .then((res) => { return res.json() })
     .then(data => {
-      displayEachPost(data);
+      qs('#exp_marquee').innerHTML = data[0].title.rendered;
     })
     .catch(err => {
       console.log(err);
     })
 }
-//latestSkills();
+topNews();

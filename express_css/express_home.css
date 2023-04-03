@@ -175,12 +175,17 @@
   width: 100%;
 }
 
-.exp_news_card {
+.exp_news_card,
+.exp_skill_card {
+  position: relative;
+  min-height: 500px;
   width: 24%;
   border-radius: 7px;
   overflow: hidden;
   background: #f0f0f094;
+  margin-bottom: 20px;
 }
+
 
 .exp_card_content {
   padding: 10px;
@@ -195,6 +200,18 @@
   font-size: 18px;
   line-height: 1.5;
   margin: 10px 0;
+}
+
+.exp_card_content a {
+  text-decoration: none;
+  color: #0548b4;
+  font-size: 18px;
+}
+
+.exp-more-read {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
 }
 
 .exp_card_content time {
@@ -378,7 +395,8 @@
     width: 90%;
   }
 
-  .exp_news_card {
+  .exp_news_card,
+  .exp_skill_card {
     width: 48%;
     margin-bottom: 30px;
   }
@@ -422,7 +440,8 @@
     width: 100%;
   }
 
-  .exp_news_card {
+  .exp_news_card,
+  .exp_skill_card {
     width: 100%;
     margin-bottom: 30px;
   }
